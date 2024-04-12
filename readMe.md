@@ -2,5 +2,5 @@
 This extension provides some advanced SEO-tools.
 
 ## Installation
-Just install the extension. There is no further configuation needed.
+Just install the extension. As by now there is no further configuration needed.
 
