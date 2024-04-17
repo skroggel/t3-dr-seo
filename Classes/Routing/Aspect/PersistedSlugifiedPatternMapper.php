@@ -26,24 +26,42 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package Madj2k_DrSeo
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class PersistedSlugifiedPatternMapper extends \Calien\PersistedSanitizedRouting\Routing\Aspect\PersistedSanitizedPatternMapper
-{
+if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('persisted_sanitized_routing')) {
 
-    /**
-     * @return SlugHelper
-     */
-    protected function getSlugHelper(): SlugHelper
+    class PersistedSlugifiedPatternMapper extends \Calien\PersistedSanitizedRouting\Routing\Aspect\PersistedSanitizedPatternMapper
     {
-        if ($this->slugHelper === null) {
-            $this->slugHelper = GeneralUtility::makeInstance(
-                SlugHelper::class,
-                $this->tableName,
-                '',
-                []
-            );
+
+        /**
+         * @return SlugHelper
+         */
+        protected function getSlugHelper(): SlugHelper
+        {
+            trigger_error(__CLASS__ . '::' . __METHOD__ . '(): Please do not use this method any more.', E_USER_DEPRECATED);
+            if ($this->slugHelper === null) {
+                $this->slugHelper = GeneralUtility::makeInstance(
+                    SlugHelper::class,
+                    $this->tableName,
+                    '',
+                    []
+                );
+            }
+
+            return $this->slugHelper;
         }
 
-        return $this->slugHelper;
     }
 
+} else {
+
+    class PersistedSlugifiedPatternMapper
+    {
+        /**
+         * @throws Exception
+         */
+        public function __construct(array $settings)
+        {
+            throw new Exception('Extension persisted_sanitized_routing has to be installed');
+        }
+
+    }
 }
