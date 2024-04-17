@@ -20,16 +20,16 @@ $EM_CONF[$_EXTKEY] = [
 	'internal' => '',
 	'uploadfolder' => '0',
 	'clearCacheOnLoad' => 0,
-	'version' => '12.4.1',
+	'version' => '12.4.2',
 	'constraints' => [
 		'depends' => [
             'typo3' => '9.5.0-12.4.99',
             'seo' => '9.5.0-12.4.99',
-            'persisted_sanitized_routing' => '1.0.4',
         ],
 		'conflicts' => [
 		],
 		'suggests' => [
+            'persisted_sanitized_routing' => '1.0.4',
         ],
 	],
 ];
