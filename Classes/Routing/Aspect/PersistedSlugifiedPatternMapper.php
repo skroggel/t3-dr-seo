@@ -26,7 +26,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * @package Madj2k_DrSeo
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('persisted_sanitized_routing')) {
+if (class_exists(\Calien\PersistedSanitizedRouting\Routing\Aspect\PersistedSanitizedPatternMapper::class)) {
 
     class PersistedSlugifiedPatternMapper extends \Calien\PersistedSanitizedRouting\Routing\Aspect\PersistedSanitizedPatternMapper
     {
