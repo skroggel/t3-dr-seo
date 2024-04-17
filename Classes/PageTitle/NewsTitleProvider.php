@@ -33,56 +33,69 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 class NewsTitleProvider extends AbstractPageTitleProvider
 {
 
-	private const DEFAULT_PROPERTIES = 'title';
+    protected const DEFAULT_PROPERTIES = 'title';
+    protected const DEFAULT_GLUE = ' – ';
+
+    /**
+     * @var TYPO3\CMS\Core\Site\SiteFinder
+     */
+    private ?SiteFinder $siteFinder = null;
 
 
-	/**
+    /**
 	 * @param SiteFinder $siteFinder
 	 */
-	public function __construct(private readonly SiteFinder $siteFinder)
+	public function __construct(SiteFinder $siteFinder)
 	{
-
+        $this->siteFinder = $siteFinder;
 	}
 
 
 	/**
-	 * @param News $news
+	 * @param \GeorgRinger\News\Domain\Model\News $news
 	 * @param array $configuration
 	 * @throws \TYPO3\CMS\Core\Exception\SiteNotFoundException
 	 */
 	public function setTitleByNews(News $news, array $configuration = []): void
 	{
+        // get relevant fields
 		$title = '';
 		$fields = GeneralUtility::trimExplode(',', $configuration['properties'] ?? self::DEFAULT_PROPERTIES, true);
+        $separator = $configuration['separator'] ?? self::DEFAULT_GLUE;
 
 		$usedField = '';
 		foreach ($fields as $field) {
 			$getter = 'get' . ucfirst($field);
 			$value = $news->$getter();
 			if ($value) {
+
+                // store last used field and remove soft hyphens (if any)
 				$usedField = $field;
-				$title = str_replace('­', '', strip_tags($value));;
+				$title = str_replace('­', '', strip_tags($value));
 				break;
 			}
 		}
 
+        $site = $this->siteFinder->getSiteByPageId($this->getTypoScriptFrontendController()->page['uid']);
+        $titleArray = [
+            $site->getAttribute('websiteTitle'),
+        ];
+
 		if ($title) {
-			$site = $this->siteFinder->getSiteByPageId($this->getTypoScriptFrontendController()->page['uid']);
 
-			$titles = [
-				$site->getAttribute('websiteTitle'),
-				$title,
-			];
+            // add title of page
+			$titleArray[] = $title;
 
+            // no website-title prefix if alternative field is used
 			if ($usedField == 'alternativeTitle') {
-				$titles = [
+				$titleArray = [
 					$title,
 				];
 			}
-
-			// do something
-			$this->title = implode(' – ', $titles);
 		}
+
+        // merge
+        $this->title = implode($separator, $titleArray);
 	}
 
 

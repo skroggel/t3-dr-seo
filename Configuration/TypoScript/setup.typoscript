@@ -55,7 +55,7 @@ config {
         drSeo {
             provider = Madj2k\DrSeo\PageTitle\WebsiteTitleProvider
             after = news
-            before = record
+            before = record, seo, yoastRecord
         }
     }
 }
