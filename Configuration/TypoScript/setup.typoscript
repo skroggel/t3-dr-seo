@@ -1,0 +1,61 @@
+plugin.tx_drseo {
+
+	view {
+		layoutRootPaths {
+			0 = EXT:dr_seo/Resources/Private/Layouts/
+			10 = {$plugin.tx_drseo.view.layoutRootPath}
+		}
+		templateRootPaths {
+			0 = EXT:dr_seo/Resources/Private/Templates/
+            10 = {$plugin.tx_drseo.view.templateRootPath}
+        }
+		partialRootPaths {
+			0 = EXT:dr_seo/Resources/Private/Partials/
+			10 = {$plugin.tx_drseo.view.partialRootPath}
+        }
+	}
+
+	persistence {
+		storagePid = {$plugin.tx_drseo.persistence.storagePid}
+	}
+
+	settings {
+
+	}
+}
+
+/**
+ * Set PageTitle-Providers
+ */
+plugin.tx_news {
+	settings {
+	    detail {
+
+			# override pageTitleProvider
+			pageTitle {
+				provider = Madj2k\DrSeo\PageTitle\NewsTitleProvider
+				properties = alternativeTitle,title
+			}
+        }
+    }
+}
+
+
+config {
+
+    # do not render website title in frontendController
+    showWebsiteTitle = 0
+    pageTitleProviders {
+
+        # override news provider
+        news {
+            provider = Madj2k\DrSeo\PageTitle\NewsTitleProvider
+            before = altPageTitle,record,seo
+        }
+        drSeo {
+            provider = Madj2k\DrSeo\PageTitle\WebsiteTitleProvider
+            after = news
+            before = record
+        }
+    }
+}
