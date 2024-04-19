@@ -9,7 +9,7 @@ call_user_func(
         // Add Rootline Fields
         //=================================================================
         $rootlineFields = &$GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'];
-        $newRootlineFields = 'keywords,abstract,description,no_index,no_follow';
+        $newRootlineFields = 'keywords, abstract, author, seo_title, description, no_index, no_follow';
         $rootlineFields .= (empty($rootlineFields))? $newRootlineFields : ',' . $newRootlineFields;
 
         //=================================================================
@@ -24,7 +24,17 @@ call_user_func(
         //=================================================================
         // Remove some functions from ext:seo we handle ourselves
         //=================================================================
-        if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) < 1000000){
+        $version = 0;
+        $legacy = false;
+        if (defined('TYPO3_version')) {
+            $version = TYPO3_version;
+            $legacy = true;
+        } else {
+            $typo3Version = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
+            $version = $typo3Version->getMajorVersion();
+        }
+
+        if (($legacy && $verion < 1000000) || (!$legacy && $version < 10)){
             unset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['TYPO3\CMS\Frontend\Page\PageGenerator']['generateMetaTags']['metatag']);
             unset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['TYPO3\CMS\Frontend\Page\PageGenerator']['generateMetaTags']['canonical']);
 

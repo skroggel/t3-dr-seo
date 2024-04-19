@@ -6,3 +6,9 @@ services:
 
   Madj2k\DrSeo\:
     resource: '../Classes/*'
+
+  Madj2k\DrSeo\PageTitle\NewsTitleProvider:
+    public: true
+
+  Madj2k\DrSeo\PageTitle\WebsiteTitleProvider:
+    public: true
