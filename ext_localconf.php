@@ -9,7 +9,7 @@ call_user_func(
         // Add Rootline Fields
         //=================================================================
         $rootlineFields = &$GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'];
-        $newRootlineFields = 'keywords, abstract, author, seo_title, description, no_index, no_follow';
+        $newRootlineFields = 'keywords, abstract, author, seo_title, description, og_image, no_index, no_follow';
         $rootlineFields .= (empty($rootlineFields))? $newRootlineFields : ',' . $newRootlineFields;
 
         //=================================================================
