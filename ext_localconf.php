@@ -34,7 +34,7 @@ call_user_func(
             $version = $typo3Version->getMajorVersion();
         }
 
-        if (($legacy && $verion < 1000000) || (!$legacy && $version < 10)){
+        if (($legacy && $version < 1000000) || (!$legacy && $version < 10)){
             unset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['TYPO3\CMS\Frontend\Page\PageGenerator']['generateMetaTags']['metatag']);
             unset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['TYPO3\CMS\Frontend\Page\PageGenerator']['generateMetaTags']['canonical']);
 
