@@ -37,24 +37,24 @@ class WebsiteTitleProvider implements PageTitleProviderInterface
 
 
     /**
-     * @var TYPO3\CMS\Core\Site\SiteFinder
+     * @var \TYPO3\CMS\Core\Site\SiteFinder
      */
     private ?SiteFinder $siteFinder = null;
 
 
 	/**
-	 * @param TYPO3\CMS\Core\Site\SiteFinder $siteFinder
+	 * @param \TYPO3\CMS\Core\Site\SiteFinder $siteFinder
 	 */
 	public function __construct(SiteFinder $siteFinder)
 	{
         $this->siteFinder = $siteFinder;
 	}
 
-    
+
     /**
      * @param array $configuration
      * @return string
-     * @throws TYPO3\CMS\Core\Exception\SiteNotFoundException
+     * @throws \TYPO3\CMS\Core\Exception\SiteNotFoundException
      */
 	public function getTitle(array $configuration = []): string
 	{
@@ -62,7 +62,7 @@ class WebsiteTitleProvider implements PageTitleProviderInterface
         // get relevant fields
         $title = '';
         $fields = GeneralUtility::trimExplode(',', $configuration['properties'] ?? self::DEFAULT_PROPERTIES, true);
-        $separator = $configuration['separator'] ?? self::DEFAULT_GLUE;
+        // $separator = $configuration['separator'] ?? self::DEFAULT_GLUE;
 
         $usedField = '';
         foreach ($fields as $field) {

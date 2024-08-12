@@ -37,7 +37,7 @@ class NewsTitleProvider extends AbstractPageTitleProvider
     protected const DEFAULT_GLUE = ' – ';
 
     /**
-     * @var TYPO3\CMS\Core\Site\SiteFinder
+     * @var \TYPO3\CMS\Core\Site\SiteFinder
      */
     private ?SiteFinder $siteFinder = null;
 
