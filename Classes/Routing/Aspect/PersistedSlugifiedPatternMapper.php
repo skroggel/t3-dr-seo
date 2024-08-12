@@ -16,6 +16,7 @@ namespace Madj2k\DrSeo\Routing\Aspect;
  */
 
 use Madj2k\DrSeo\DataHandling\SlugHelper;
+use Madj2k\DrSeo\Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -56,7 +57,7 @@ if (class_exists(\Calien\PersistedSanitizedRouting\Routing\Aspect\PersistedSanit
     class PersistedSlugifiedPatternMapper
     {
         /**
-         * @throws Exception
+         * @throws \Madj2k\DrSeo\Exception
          */
         public function __construct(array $settings)
         {
