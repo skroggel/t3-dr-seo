@@ -19,7 +19,7 @@ call_user_func(
 				--palette--;;opengraph,
 				--palette--;;twittercards',
             (string)\TYPO3\CMS\Core\Domain\Repository\PageRepository::DOKTYPE_SHORTCUT,
-            'after:title'
+            'after:shortcut'
         );
 
         //===========================================================================
@@ -27,7 +27,7 @@ call_user_func(
         //===========================================================================
         $GLOBALS['TCA']['pages']['palettes']['opengraph']['label'] = '';
 
-        
+
         //===========================================================================
         // Remove social media-fields we don't need
         //===========================================================================
